@@ -1,5 +1,12 @@
 from src.data_loader import load_stock_data
-from src.metrics import calculate_daily_returns, calculate_return_statistics
+from src.metrics import (
+    calculate_daily_returns,
+    calculate_return_statistics,
+    calculate_cumulative_return,
+    calculate_annualized_return,
+    calculate_annualized_volatility,
+    calculate_max_drawdown
+)
 
 
 def main():
@@ -13,11 +20,22 @@ def main():
 
     stats = calculate_return_statistics(data)
 
+    cumulative_return = calculate_cumulative_return(data)
+    annualized_return = calculate_annualized_return(data)
+    annualized_volatility = calculate_annualized_volatility(data)
+    max_drawdown = calculate_max_drawdown(data)
+
     print("\nRETURN STATISTICS")
     print(f"Mean daily return: {stats['mean_daily_return']:.4%}")
     print(f"Daily volatility: {stats['daily_volatility']:.4%}")
     print(f"Best day: {stats['best_day']:.4%}")
     print(f"Worst day: {stats['worst_day']:.4%}")
+
+    print("\nLONG-TERM METRICS")
+    print(f"Cumulative return: {cumulative_return:.2%}")
+    print(f"Annualized return: {annualized_return:.2%}")
+    print(f"Annualized volatility: {annualized_volatility:.2%}")
+    print(f"Max drawdown: {max_drawdown:.2%}")
 
 
 if __name__ == "__main__":

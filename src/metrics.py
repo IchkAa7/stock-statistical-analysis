@@ -30,3 +30,45 @@ def calculate_return_statistics(data):
         "best_day": best_day,
         "worst_day": worst_day
     }
+import numpy as np
+
+
+def calculate_cumulative_return(data):
+    returns = data["Daily Return"].dropna()
+
+    cumulative_return = (1 + returns).prod() - 1
+
+    return cumulative_return
+
+
+def calculate_annualized_return(data):
+    returns = data["Daily Return"].dropna()
+
+    cumulative_growth = (1 + returns).prod()
+    number_of_days = len(returns)
+
+    annualized_return = cumulative_growth ** (252 / number_of_days) - 1
+
+    return annualized_return
+
+
+def calculate_annualized_volatility(data):
+    returns = data["Daily Return"].dropna()
+
+    daily_volatility = returns.std()
+
+    annualized_volatility = daily_volatility * np.sqrt(252)
+
+    return annualized_volatility
+
+
+def calculate_max_drawdown(data):
+    close = data["Close"].squeeze()
+
+    running_max = close.cummax()
+
+    drawdown = (close - running_max) / running_max
+
+    max_drawdown = drawdown.min()
+
+    return max_drawdown
