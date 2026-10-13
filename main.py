@@ -1,3 +1,5 @@
+from yfinance import data
+
 from src.data_loader import load_stock_data
 from src.metrics import (
     calculate_daily_returns,
@@ -6,6 +8,12 @@ from src.metrics import (
     calculate_annualized_return,
     calculate_annualized_volatility,
     calculate_max_drawdown
+)
+from src.visualization import (
+    plot_price,
+    plot_daily_returns,
+    plot_return_distribution,
+    plot_drawdown
 )
 
 
@@ -36,6 +44,10 @@ def main():
     print(f"Annualized return: {annualized_return:.2%}")
     print(f"Annualized volatility: {annualized_volatility:.2%}")
     print(f"Max drawdown: {max_drawdown:.2%}")
+    plot_price(data, "AAPL")
+    plot_daily_returns(data, "AAPL")
+    plot_return_distribution(data, "AAPL")
+    plot_drawdown(data, "AAPL")
 
 
 if __name__ == "__main__":
