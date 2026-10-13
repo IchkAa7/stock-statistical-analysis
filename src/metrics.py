@@ -72,3 +72,28 @@ def calculate_max_drawdown(data):
     max_drawdown = drawdown.min()
 
     return max_drawdown
+def calculate_sharpe_ratio(data, risk_free_rate=0.0):
+    returns = data["Daily Return"].dropna()
+
+    daily_risk_free_rate = risk_free_rate / 252
+
+    excess_returns = returns - daily_risk_free_rate
+
+    sharpe_ratio = (
+        excess_returns.mean()
+        / excess_returns.std()
+    ) * np.sqrt(252)
+
+    return sharpe_ratio
+
+
+def calculate_skewness(data):
+    returns = data["Daily Return"].dropna()
+
+    return returns.skew()
+
+
+def calculate_kurtosis(data):
+    returns = data["Daily Return"].dropna()
+
+    return returns.kurt()

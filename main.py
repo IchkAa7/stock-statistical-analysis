@@ -7,8 +7,12 @@ from src.metrics import (
     calculate_cumulative_return,
     calculate_annualized_return,
     calculate_annualized_volatility,
-    calculate_max_drawdown
+    calculate_max_drawdown,
+    calculate_sharpe_ratio,
+    calculate_skewness,
+    calculate_kurtosis
 )
+
 from src.visualization import (
     plot_price,
     plot_daily_returns,
@@ -32,6 +36,9 @@ def main():
     annualized_return = calculate_annualized_return(data)
     annualized_volatility = calculate_annualized_volatility(data)
     max_drawdown = calculate_max_drawdown(data)
+    sharpe_ratio = calculate_sharpe_ratio(data)
+    skewness = calculate_skewness(data)
+    kurtosis = calculate_kurtosis(data)
 
     print("\nRETURN STATISTICS")
     print(f"Mean daily return: {stats['mean_daily_return']:.4%}")
@@ -44,6 +51,12 @@ def main():
     print(f"Annualized return: {annualized_return:.2%}")
     print(f"Annualized volatility: {annualized_volatility:.2%}")
     print(f"Max drawdown: {max_drawdown:.2%}")
+
+    print("\nRISK METRICS")
+    print(f"Sharpe ratio: {sharpe_ratio:.2f}")
+    print(f"Skewness: {skewness:.2f}")
+    print(f"Kurtosis: {kurtosis:.2f}")
+    
     plot_price(data, "AAPL")
     plot_daily_returns(data, "AAPL")
     plot_return_distribution(data, "AAPL")
